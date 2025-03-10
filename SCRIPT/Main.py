@@ -31,5 +31,5 @@ def generate_tickets(t):
         price = ticket_price(date)
         tickets.append(f"INSERT INTO Tickets (date, price) VALUES ('{date.date()}',{price})")
     return tickets
-with open("insert_tickets.sql","w") as file:
-    file.write("\n".join(generate_tickets(11)))
+for query in generate_tickets(11):  
+    print(query)
