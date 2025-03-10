@@ -1,0 +1,59 @@
+use ULPIALAND;
+create table Tickets
+(
+    ticket_id int autoincrement primary key,
+    date date,
+    price decimal(5,2)
+);
+create table Visitors
+(
+    visitor_id int autoincrement primary key,
+    first_name varchar(50),
+    last_name varchar(50),
+    age int,
+    ticket_id int,
+    foreign key (ticket_id) references Tickets(ticket_id)
+);
+create table Atractions
+(
+    atraction_id int autoincrement primary key,
+    name varchar(30),
+    age_restriction int,
+    category varchar(30),
+    //CONSTRAINT age_check CHECK (age_restriction >= 6 AND age_restriction <= 50)
+);
+create table Shops
+(
+    shop_id int autoincrement primary key,
+    name varchar(50),
+    shop_type varchar(30) //check (shop_type in ('shop', 'restaurant'))    
+);
+create table ShopItems
+(
+    item_id int autoincrement primary key,
+    shop_id int,
+    item varchar(50),
+    price decimal(6,2), 
+    quantity int,
+    FOREIGN KEY (shop_id) REFERENCES Shops(shop_id)
+);
+
+create table Employees
+(
+    employee_id int autoincrement primary key,
+    first_name varchar(50),
+    last_name varchar(50),
+    position varchar(50),
+    salary decimal(7,2)
+);
+create table Transactions
+(
+    transaction_id int autoincrement primary key,
+    transaction_type varchar(50),
+    amount decimal(7,2),
+    transaction_date timestamp default current_timestamp,
+    visitor_id int,
+    shop_id int,
+    FOREIGN KEY (visitor_id) REFERENCES Visitors(visitor_id),
+    FOREIGN KEY (shop_id) REFERENCES Shops(shop_id)
+);
